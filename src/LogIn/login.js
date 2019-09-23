@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import './login.scss';
+import '../CommonCode/Validators'
+import { email, validatePassword, validateMail } from '../CommonCode/Validators';
 
 class LoginComponent extends Component {
     constructor() {
@@ -33,6 +35,18 @@ class LoginComponent extends Component {
         event.preventDefault()
     }
 
+    blurHandler = (event) => {
+        var inputType = event.target.name
+        var value = event.target.value
+        var result =  false
+        if(inputType == 'userID'){
+            result = validateMail(value)
+        }else if (inputType == 'password'){
+            result = validatePassword(value)
+        }
+        console.log("Validation result is ", result)
+    }
+
     formReset = () => {
         console.log("This resets the form")
         this.setState({
@@ -44,19 +58,32 @@ class LoginComponent extends Component {
     render() {
         return (
             <form className="container formContainer">
-                <div class="formHeading">Enter You Credentials</div>
+                <div className="formHeading">Enter You Credentials</div>
                 <div>
-                    <img  className="formImage" src="/loginImage.jpg"></img>
+                    <img className="formImage" src="/loginImage.jpg"></img>
                 </div>
                 <div className="innerForm">
                     <div className="formGroup inputGroup">
                         <label className="inputEntity inputLabel">User ID</label>
-                        <input className="formControl textInput inputEntity textInput" type='text' name="userID" value={this.state.loginForm.userID || ''} onChange={this.changeHandler} placeholder="Eneter Value" >
+                        <input className="formControl textInput inputEntity textInput"
+                            type='text'
+                            name="userID"
+                            value={this.state.loginForm.userID || ''}
+                            onChange={this.changeHandler}
+                            onBlur={this.blurHandler}
+                            placeholder="Eneter Value"
+                        >
                         </input>
                     </div>
                     <div className="formGroup inputGroup">
                         <label className="inputEntity inputLabel">Password</label>
-                        <input className="textInput formControl inputEntity textInput" type='password' name="password" value={this.state.loginForm.password || ''} onChange={this.changeHandler} placeholder="Eneter Value" >
+                        <input className="textInput formControl inputEntity textInput"
+                            type='password'
+                            name="password"
+                            value={this.state.loginForm.password || ''}
+                            onChange={this.changeHandler}
+                            onBlur={this.blurHandler}
+                            placeholder="Eneter Password" >
                         </input>
                     </div>
                 </div>
