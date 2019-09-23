@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './login.scss'
+import './login.scss';
 
 class LoginComponent extends Component {
     constructor() {
@@ -19,8 +19,8 @@ class LoginComponent extends Component {
         const value = event.target.value
 
         this.setState({
-            loginForm: { [name]: value },
-            loginForm: { [name]: value }
+            ...this.state,
+            loginForm: { ...this.state.loginForm, [name]: value }
         }, () => {
             console.log(this.state.loginForm)
         })
@@ -36,26 +36,32 @@ class LoginComponent extends Component {
     formReset = () => {
         console.log("This resets the form")
         this.setState({
-            loginForm:{
+            loginForm: {
             }
         })
     }
 
     render() {
         return (
-            <form>
+            <form className="container formContainer">
+                <div class="formHeading">Enter You Credentials</div>
                 <div>
-                    <label>User ID</label>
-                    <input type='text' name="userID" value={this.state.loginForm.userID || ''} onChange={this.changeHandler} placeholder="Eneter Value" >
-                    </input>
+                    <img  className="formImage" src="/loginImage.jpg"></img>
                 </div>
-                <div>
-                    <label>Password</label>
-                    <input type='password' name="password" value={this.state.loginForm.password || ''} onChange={this.changeHandler} placeholder="Eneter Value" >
-                    </input>
+                <div className="innerForm">
+                    <div className="formGroup inputGroup">
+                        <label className="inputEntity inputLabel">User ID</label>
+                        <input className="formControl textInput inputEntity textInput" type='text' name="userID" value={this.state.loginForm.userID || ''} onChange={this.changeHandler} placeholder="Eneter Value" >
+                        </input>
+                    </div>
+                    <div className="formGroup inputGroup">
+                        <label className="inputEntity inputLabel">Password</label>
+                        <input className="textInput formControl inputEntity textInput" type='password' name="password" value={this.state.loginForm.password || ''} onChange={this.changeHandler} placeholder="Eneter Value" >
+                        </input>
+                    </div>
                 </div>
-                <button onClick={this.submitHandler}>Subbmit</button>
-                <button onClick = {this.formReset}>Clear Form</button>
+                <button className=" custBtn btn btn-success " onClick={this.submitHandler}>Subbmit</button>
+                <button className=" custBtn btn btn-danger" onClick={this.formReset}>Clear Form</button>
             </form>
         )
     }
