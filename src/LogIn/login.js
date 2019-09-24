@@ -31,7 +31,7 @@ class LoginComponent extends Component {
 
 
     submitHandler = (event) => {
-        console.log("Subbmitted Data is ", event)
+        console.log("Subbmitted Data is ", this.state.loginForm)
         event.preventDefault()
     }
 
@@ -47,12 +47,13 @@ class LoginComponent extends Component {
         console.log("Validation result is ", result)
     }
 
-    formReset = () => {
+    formReset = (event) => {
         console.log("This resets the form")
         this.setState({
-            loginForm: {
-            }
+            ...this.state,
+            loginForm: {}
         })
+        event.preventDefault()
     }
 
     render() {

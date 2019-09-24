@@ -1,9 +1,9 @@
 .formContainer {
   
-     
+  
   display: flex;
   flex-direction: column;
-  margin: 5%;
+  width:50% !important; // To override the 100% width of container
   .formHeading{
       text-align: center;
       font-size: 200%;

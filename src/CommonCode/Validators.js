@@ -7,8 +7,7 @@ export function validateMail(email) {
 }
 
 export function validatePassword(word){
-    var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{6,}$/;
+    var re = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
     console.log("Password check")
-    return re.test(word);
-    
+    return re.test(String(word));
 }
