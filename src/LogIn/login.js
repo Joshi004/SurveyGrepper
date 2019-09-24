@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import './login.scss';
 import '../CommonCode/Validators'
-import { email, validatePassword, validateMail } from '../CommonCode/Validators';
-
+import { validatePassword, validateMail } from '../CommonCode/Validators';
+import  DynamicFormComponent from '../DynamicForm/dform'
 class LoginComponent extends Component {
     constructor() {
         super()
@@ -13,10 +13,52 @@ class LoginComponent extends Component {
             }
         }
     }
-
+    formData= [
+        {
+          "id":1,
+          "name":"a",
+          "age":29,
+          "qualification":"B.Com",
+          "rating":3,
+          "profile":"./loginImage.jpg"
+        },
+        {
+          "id":2,
+          "name":"b",
+          "age":23,
+          "qualification":"B.Com",
+          "rating":4,
+          "profile":"./loginImage.jpg"
+        },
+        {
+          "id":3,
+          "name":"c",
+          "age":21,
+          "qualification":"B.Com",
+          "rating":2,
+          "profile":"./loginImage.jpg"
+        },
+        {
+          "id":4,
+          "name":"d",
+          "age":49,
+          "qualification":"B.Com",
+          "rating":1,
+          "profile":"./loginImage.jpg"
+        }
+      ]
+    componentDidMount(){
+        
+        console.log("Component is mounted")
+        fetch('./Data/Mock/formData.json').then((data)=>{
+            console.log("This is fetched data",data)
+        }).catch((err)=>{
+            console.log("There was some error fetching data : ",err)
+        });
+    }
 
     changeHandler = (event) => {
-        console.log("This is change handler invoked")
+        // console.log("This is change handler invoked")
         const name = event.target.name
         const value = event.target.value
 
@@ -24,14 +66,14 @@ class LoginComponent extends Component {
             ...this.state,
             loginForm: { ...this.state.loginForm, [name]: value }
         }, () => {
-            console.log(this.state.loginForm)
+            // console.log(this.state.loginForm)
         })
 
     }
 
 
     submitHandler = (event) => {
-        console.log("Subbmitted Data is ", this.state.loginForm)
+        // console.log("Subbmitted Data is ", this.state.loginForm)
         event.preventDefault()
     }
 
@@ -39,16 +81,17 @@ class LoginComponent extends Component {
         var inputType = event.target.name
         var value = event.target.value
         var result =  false
-        if(inputType == 'userID'){
+        if(inputType === 'userID'){
             result = validateMail(value)
-        }else if (inputType == 'password'){
+        }else if (inputType === 'password'){
             result = validatePassword(value)
         }
-        console.log("Validation result is ", result)
+        return result
+        // console.log("Validation result is ", result)
     }
 
     formReset = (event) => {
-        console.log("This resets the form")
+        // console.log("This resets the form")
         this.setState({
             ...this.state,
             loginForm: {}
@@ -56,12 +99,17 @@ class LoginComponent extends Component {
         event.preventDefault()
     }
 
+    onSubmit(model){
+        console.log("Parent Submit",model)
+    }
+
     render() {
         return (
-            <form className="container formContainer">
+            <div>
+                <form className="container formContainer">
                 <div className="formHeading">Enter You Credentials</div>
                 <div>
-                    <img className="formImage" src="/loginImage.jpg"></img>
+                    <img className="formImage" src="/loginImage.jpg" alt="LoginImg"></img>
                 </div>
                 <div className="innerForm">
                     <div className="formGroup inputGroup">
@@ -91,6 +139,21 @@ class LoginComponent extends Component {
                 <button className=" custBtn btn btn-success " onClick={this.submitHandler}>Subbmit</button>
                 <button className=" custBtn btn btn-danger" onClick={this.formReset}>Clear Form</button>
             </form>
+
+            <DynamicFormComponent
+            title="New Survey"
+            model = {[
+                {key:"name",label:"Name",props:{required:true}},
+                {key:"age",label:"Age",type:"number"},
+                {key:"rating",labe:"Rating",type:"number",props:{min:0,max:5}},
+                {key:"qualification",label:"Qualification"}
+                ]}
+                onSubmit = {(model)=> { this.onSubmit(model) }}
+            >
+                
+            </DynamicFormComponent>
+
+            </div>
         )
     }
 
