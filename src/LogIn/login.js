@@ -117,10 +117,10 @@ class LoginComponent extends Component {
             <DynamicFormComponent
             title="New Survey"
             model = {[
-                {key:"name",label:"Name",props:{required:true}},
-                {key:"age",label:"Age",type:"number"},
-                {key:"rating",labe:"Rating",type:"number",props:{min:0,max:5}},
-                {key:"qualification",label:"Qualification"}
+                {key:"1",label:"Name",props:{required:true}},
+                {key:"2",label:"Age",type:"number"},
+                {key:"3",label:"Rating",type:"number",props:{min:0,max:5}},
+                {key:"4",label:"Qualification"}
                 ]}
                 onSubmit = {(model)=> { this.onSubmit(model) }}
             >
