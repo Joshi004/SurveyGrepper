@@ -1,34 +1,34 @@
- [
-  {
-    "id":1,
-    "name":"a",
-    "age":29,
-    "qualification":"B.Com",
-    "rating":3,
-    "profile":"./loginImage.jpg"
-  },
-  {
-    "id":2,
-    "name":"b",
-    "age":23,
-    "qualification":"B.Com",
-    "rating":4,
-    "profile":"./loginImage.jpg"
-  },
-  {
-    "id":3,
-    "name":"c",
-    "age":21,
-    "qualification":"B.Com",
-    "rating":2,
-    "profile":"./loginImage.jpg"
-  },
-  {
-    "id":4,
-    "name":"d",
-    "age":49,
-    "qualification":"B.Com",
-    "rating":1,
-    "profile":"./loginImage.jpg"
-  }
-]
+[
+    {
+      "id": 1,
+      "name": "a",
+      "age": 29,
+      "qualification": "B.Com",
+      "rating": 3,
+      "profile": "./loginImage.jpg"
+    },
+    {
+      "id": 2,
+      "name": "b",
+      "age": 23,
+      "qualification": "B.Com",
+      "rating": 4,
+      "profile": "./loginImage.jpg"
+    },
+    {
+      "id": 3,
+      "name": "c",
+      "age": 21,
+      "qualification": "B.Com",
+      "rating": 2,
+      "profile": "./loginImage.jpg"
+    },
+    {
+      "id": 4,
+      "name": "d",
+      "age": 49,
+      "qualification": "B.Com",
+      "rating": 1,
+      "profile": "./loginImage.jpg"
+    }
+  ]

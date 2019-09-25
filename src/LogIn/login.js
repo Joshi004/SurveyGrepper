@@ -3,57 +3,31 @@ import './login.scss';
 import '../CommonCode/Validators'
 import { validatePassword, validateMail } from '../CommonCode/Validators';
 import  DynamicFormComponent from '../DynamicForm/dform'
+
 class LoginComponent extends Component {
     constructor() {
         super()
         this.state = {
+            formData:[],
             loginForm: {
                 userID: '',
                 password: ''
             }
         }
     }
-    formData= [
-        {
-          "id":1,
-          "name":"a",
-          "age":29,
-          "qualification":"B.Com",
-          "rating":3,
-          "profile":"./loginImage.jpg"
-        },
-        {
-          "id":2,
-          "name":"b",
-          "age":23,
-          "qualification":"B.Com",
-          "rating":4,
-          "profile":"./loginImage.jpg"
-        },
-        {
-          "id":3,
-          "name":"c",
-          "age":21,
-          "qualification":"B.Com",
-          "rating":2,
-          "profile":"./loginImage.jpg"
-        },
-        {
-          "id":4,
-          "name":"d",
-          "age":49,
-          "qualification":"B.Com",
-          "rating":1,
-          "profile":"./loginImage.jpg"
-        }
-      ]
+    formData = []
     componentDidMount(){
         
         console.log("Component is mounted")
-        fetch('./Data/Mock/formData.json').then((data)=>{
-            console.log("This is fetched data",data)
-        }).catch((err)=>{
-            console.log("There was some error fetching data : ",err)
+        fetch('/src/Data/Mock/formData.JSON')
+        .then( data => data.json())
+        .then((data)=>{
+            console.log("Fetched data is",data)
+            this.formData = data
+        })
+        .catch((err)=>{
+            console.log("Could not fetch formDatafromServer loading MockData")
+            this.formData = require('../Data/Mock/formData.json')
         });
     }
 
