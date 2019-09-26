@@ -30,12 +30,20 @@ export default class DynamicFormComponent extends Component {
         )
     }
 
+    editField = (field) => {
+        console.log("This field is to be editd", field)
+    }
+
     renderForm() {
         console.log("This is model Object", this.props.model)
         var model = this.state.formModel
         var formUI = model.map((field) => {
             return (
-                <div key={field.key} className="">
+                <div key={field.key} className="fieldDiv">
+                    <div className="fieldOptions">
+                        <span onClick={this.editField()} className="fa-pencil-square">Edit </span>
+                        <span className="fa-times" aria-hidden="true"> Delete</span>
+                    </div>
                     <label htmlFor={field.key}>
                         {field.label}
                     </label>

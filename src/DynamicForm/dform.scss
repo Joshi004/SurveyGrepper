@@ -8,6 +8,18 @@
         padding: 10px;
         margin:10px;
     }
+
+    .fieldDiv{
+        display: flex;
+        flex-direction: column;
+        background-color: antiquewhite;
+        margin: 1%;
+        padding: 1%;
+        .fieldOptions{
+            text-align: right;
+            padding: 5px;
+        }
+    }
     
     .btnGrp{
             
