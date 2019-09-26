@@ -6,7 +6,8 @@ export default class DynamicFormComponent extends Component {
     constructor(props) {
         super(props)
     }
-    state = {}
+    state = {selectedKey:0}
+
 
     componentWillMount() {
         this.setState(
@@ -30,8 +31,36 @@ export default class DynamicFormComponent extends Component {
         )
     }
 
-    editField = (field) => {
-        console.log("This field is to be editd", field)
+    editField(current_key) {
+        console.log("Edit Key : ", current_key)
+        this.setState({
+            ...this.state,
+            selectedKey:current_key
+        })
+    }
+
+    getIndex = (key,) => {
+        console.log("Inside getIndex", key)
+        for (let i = 0; i < this.state.formModel.length; i++) {
+            var current_key = this.state.formModel[i].key
+            console.log("Current key in loop is ", current_key, key)
+            if (current_key == key) {
+                return i
+            }
+        }
+    }
+
+    deleteField(current_key) {
+        console.log("This is Delete for ", current_key)
+
+        var index = this.getIndex(current_key)
+        console.log("Returned index is", index)
+        if (index != undefined) {
+            this.state.formModel.splice(index, 1)
+            this.setState({
+                ...this.state
+            })
+        }
     }
 
     renderForm() {
@@ -41,13 +70,13 @@ export default class DynamicFormComponent extends Component {
             return (
                 <div key={field.key} className="fieldDiv">
                     <div className="fieldOptions">
-                        <span onClick={this.editField()} className="fa-pencil-square">Edit </span>
-                        <span className="fa-times" aria-hidden="true"> Delete</span>
+                        <span onClick={() => { this.editField(field.key) }} className="fa-pencil-square">Edit </span>
+                        <span onClick={() => { this.deleteField(field.key) }} className="fa-times" aria-hidden="true"> Delete</span>
                     </div>
                     <label htmlFor={field.key}>
                         {field.label}
                     </label>
-                    <input {...field.props} type={field.type}>
+                    <input {...field.props} name="nar" type={field.type}>
                     </input>
                 </div>
             )
@@ -55,25 +84,46 @@ export default class DynamicFormComponent extends Component {
         return formUI
     }
 
+    handleValueChange = (event)=>{
+        console.log("Updating name",event.target)
+        console.log("Trying to chnage value",event.target.value)
+        var index = this.getIndex(this.state.selectedKey)
+        var key = event.target.name
+        var value = event.target.value
+        this.state.formModel[index][key]=value
+        this.setState(this.state)
+        
+    }
+
 
     render() {
         let title = this.props.title || "Dynamic Form"
         return (
             <div className="dynamicPage">
-                <button onClick={this.changeFormData}>
-                    Chnage Form Content
-            </button>
-                <div className="container dynamicFormContainer">
-                    <div className="formHeading">{title}</div>
 
-                    <form onSubmit={(event) => { this.submitEventHandler(event) }}>
-                        {this.renderForm()}
-                        <div className="btnGrp">
-                            <button type='submit'>Submit</button>
-                        </div>
-                    </form>
-                </div>)
-        </div>
+                <div className="dynamicLeft">
+                    <button onClick={this.changeFormData}>
+                        Chnage Form Content
+                        </button>
+                    <div className="container dynamicFormContainer">
+                        <div className="formHeading">{title}</div>
+
+                        <form onSubmit={(event) => { this.submitEventHandler(event) }}>
+                            {this.renderForm()}
+                            <div className="btnGrp">
+                                <button type='submit'>Submit</button>
+                            </div>
+                        </form>
+                    </div>)
+                </div>
+
+                {/* Dynamic Right Now */}
+                <div className="DynamicRight">
+                    <div className='rightHead'>{title}</div>
+                    <div className="questionHead">Question</div>
+                    <input name='label' type="text" onChange={this.handleValueChange} value={this.state.formModel[this.state.selectedKey].label} ></input>
+                </div>
+            </div>
         )
     }
 }
