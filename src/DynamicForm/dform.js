@@ -8,9 +8,9 @@ export default class DynamicFormComponent extends Component {
     }
     state = {}
 
-    componentWillMount(){
+    componentWillMount() {
         this.setState(
-            {formModel:this.props.model || {}}
+            { formModel: this.props.model || {} }
         )
     }
 
@@ -21,54 +21,50 @@ export default class DynamicFormComponent extends Component {
         event.preventDefault()
     }
 
+    changeFormData = () => {
+        this.state.formModel[0].label += " Changed "
+        var newFormModel = this.state.formModel
+        this.setState({
+            formModel: newFormModel
+        }
+        )
+    }
 
-    renderForm(){
+    renderForm() {
         console.log("This is model Object", this.props.model)
         var model = this.state.formModel
         var formUI = model.map((field) => {
             return (
                 <div key={field.key} className="">
-                    <label  htmlFor={field.key}>
-                    {field.label}
+                    <label htmlFor={field.key}>
+                        {field.label}
                     </label>
                     <input {...field.props} type={field.type}>
-                    </input>                    
+                    </input>
                 </div>
             )
         })
         return formUI
     }
 
-    changeFormData = (e)=>{
-        this.setState({
-            ...this.setState,
-            formModel:{
-                ...this.state.formModel,
-                [this.state.formModel[0].label]:"Naresh"
-
-            }
-        }
-        )
-        e.preventDefault()
-    }
 
     render() {
         let title = this.props.title || "Dynamic Form"
         return (
-        <div className = "dynamicPage">
-            <button onClick={this.changeFormData}>
-                Chnage Form Content
+            <div className="dynamicPage">
+                <button onClick={this.changeFormData}>
+                    Chnage Form Content
             </button>
-            <div className="container dynamicFormContainer">
-            <div className="formHeading">{title}</div>
-            
-            <form onSubmit={(event) => { this.submitEventHandler(event) }}>
-            {this.renderForm()}
-                <div className="btnGrp">
-                    <button type='submit'>Submit</button>
-                </div>
-            </form>
-        </div>)
+                <div className="container dynamicFormContainer">
+                    <div className="formHeading">{title}</div>
+
+                    <form onSubmit={(event) => { this.submitEventHandler(event) }}>
+                        {this.renderForm()}
+                        <div className="btnGrp">
+                            <button type='submit'>Submit</button>
+                        </div>
+                    </form>
+                </div>)
         </div>
         )
     }
