@@ -6,7 +6,7 @@ export default class DynamicFormComponent extends Component {
     constructor(props) {
         super(props)
     }
-    state = {selectedKey:0}
+    state = { selectedKey: 0 }
 
 
     componentWillMount() {
@@ -35,11 +35,11 @@ export default class DynamicFormComponent extends Component {
         console.log("Edit Key : ", current_key)
         this.setState({
             ...this.state,
-            selectedKey:current_key
+            selectedKey: current_key
         })
     }
 
-    getIndex = (key,) => {
+    getIndex = (key, ) => {
         console.log("Inside getIndex", key)
         for (let i = 0; i < this.state.formModel.length; i++) {
             var current_key = this.state.formModel[i].key
@@ -84,15 +84,15 @@ export default class DynamicFormComponent extends Component {
         return formUI
     }
 
-    handleValueChange = (event)=>{
-        console.log("Updating name",event.target)
-        console.log("Trying to chnage value",event.target.value)
+    handleValueChange = (event) => {
+        console.log("Updating name", event.target)
+        console.log("Trying to chnage value", event.target.value)
         var index = this.getIndex(this.state.selectedKey)
         var key = event.target.name
         var value = event.target.value
-        this.state.formModel[index][key]=value
+        this.state.formModel[index][key] = value
         this.setState(this.state)
-        
+
     }
 
 
@@ -120,8 +120,21 @@ export default class DynamicFormComponent extends Component {
                 {/* Dynamic Right Now */}
                 <div className="DynamicRight">
                     <div className='rightHead'>{title}</div>
-                    <div className="questionHead">Question</div>
-                    <input name='label' type="text" onChange={this.handleValueChange} value={this.state.formModel[this.state.selectedKey].label} ></input>
+
+                    <div className="questionDiv">
+                    <div className="questionHead">Response Type</div>
+
+                    </div>
+
+                    <hr/>
+
+                    <div className="questionDiv">
+                        <div className="questionHead">Question</div>
+                        <div className="questionBody">
+                            <input name='label' type="text" onChange={this.handleValueChange} value={this.state.formModel[this.state.selectedKey].label} ></input>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         )
